@@ -1,7 +1,6 @@
 /***************************************************
   Test bed for 1.8" TFT graphics displa from AdaFruit
   
-  Random change to test git
  ****************************************************/
 
 #include <Adafruit_GFX.h>
@@ -63,85 +62,64 @@ void setup(void) {
   Serial.println("OK!");
   tft.fillScreen(ST7735_BLUE);
   // large block of text
+  Serial.println("Function testdrawtext");
   tft.fillScreen(ST7735_BLACK);
   testdrawtext("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing ante sed nibh tincidunt feugiat. Maecenas enim massa, fringilla sed malesuada et, malesuada sit amet turpis. Sed porttitor neque ut ante pretium vitae malesuada nunc bibendum. Nullam aliquet ultrices massa eu hendrerit. Ut sed nisi lorem. In vestibulum purus a tortor imperdiet posuere. ", ST7735_WHITE);
   delay(1000);
 
   // tft print function!
+  Serial.println("Function PrintTest");
   tftPrintTest();
   delay(4000);
 
   // a single pixel
+  Serial.println("Function drawPixel");
   tft.drawPixel(tft.width()/2, tft.height()/2, ST7735_GREEN);
   delay(500);
 
   // line draw test
+  Serial.println("Function testlines");
   testlines(ST7735_YELLOW);
   delay(500);
 
   // optimized lines
+  Serial.println("Function testfastlines");
   testfastlines(ST7735_RED, ST7735_BLUE);
   delay(500);
 
+  Serial.println("Function testdrawrects");
   testdrawrects(ST7735_GREEN);
   delay(500);
 
+  Serial.println("Function testfillrects");
   testfillrects(ST7735_YELLOW, ST7735_MAGENTA);
   delay(500);
 
+  Serial.println("Function fill screen, fillcircles, drawcircles");
   tft.fillScreen(ST7735_BLACK);
   testfillcircles(10, ST7735_BLUE);
   testdrawcircles(10, ST7735_WHITE);
   delay(500);
 
+  Serial.println("Function testroundrects");
   testroundrects();
   delay(500);
 
+  Serial.println("Function testtriangles");
   testtriangles();
   delay(500);
 
+  Serial.println("Function mediabuttons");
   mediabuttons();
   delay(500);
 
   Serial.println("done");
   delay(1000);
+  tft.fillScreen(ST7735_BLACK);
+
 }
 
 
-
-void testlines(uint16_t color) {
-  tft.fillScreen(ST7735_BLACK);
-  for (int16_t x=0; x < tft.width(); x+=6) {
-    tft.drawLine(0, 0, x, tft.height()-1, color);
-  }
-  for (int16_t y=0; y < tft.height(); y+=6) {
-    tft.drawLine(0, 0, tft.width()-1, y, color);
-  }
-
-  tft.fillScreen(ST7735_BLACK);
-  for (int16_t x=0; x < tft.width(); x+=6) {
-    tft.drawLine(tft.width()-1, 0, x, tft.height()-1, color);
-  }
-  for (int16_t y=0; y < tft.height(); y+=6) {
-    tft.drawLine(tft.width()-1, 0, 0, y, color);
-  }
-
-  tft.fillScreen(ST7735_BLACK);
-  for (int16_t x=0; x < tft.width(); x+=6) {
-    tft.drawLine(0, tft.height()-1, x, 0, color);
-  }
-  for (int16_t y=0; y < tft.height(); y+=6) {
-    tft.drawLine(0, tft.height()-1, tft.width()-1, y, color);
-  }
-
-  tft.fillScreen(ST7735_BLACK);
-  for (int16_t x=0; x < tft.width(); x+=6) {
-    tft.drawLine(tft.width()-1, tft.height()-1, x, 0, color);
-  }
-  for (int16_t y=0; y < tft.height(); y+=6) {
-    tft.drawLine(tft.width()-1, tft.height()-1, 0, y, color);
-  }
-}
 
 
 uint8_t readButton(void) {
@@ -163,8 +141,10 @@ uint8_t readButton(void) {
 uint8_t buttonhistory = 0;
 
 void loop() {
+
   uint8_t b = readButton();
-  tft.setTextSize(1);
+  tft.setTextSize(3);
+  
   if (b == BUTTON_DOWN) {
     tft.setTextColor(ST7735_RED);
     tft.setCursor(0, 10);
@@ -346,7 +326,7 @@ uint32_t read32(File f) {
   return result;
 }
 
-//Code from graphicstest program //
+
 void testlines(uint16_t color) {
   tft.fillScreen(ST7735_BLACK);
   for (int16_t x=0; x < tft.width(); x+=6) {
@@ -380,6 +360,7 @@ void testlines(uint16_t color) {
     tft.drawLine(tft.width()-1, tft.height()-1, 0, y, color);
   }
 }
+
 
 void testdrawtext(char *text, uint16_t color) {
   tft.setCursor(0, 0);
