@@ -12,4 +12,8 @@ bin-release/
 #ignore files ending with a tilde
 *~
 
+#ignore test file
+test.*
+test
+
 
